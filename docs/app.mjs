@@ -58,6 +58,22 @@ function draw() {
   const summary = document.createElement("p");
   summary.textContent = count + " open " + (count === 1 ? "task" : "tasks") + (list.children.length ? "" : " · No tasks in this view.");
   el("result").prepend(summary);
+  if (tasks.length) {
+    const progress = document.createElement("progress");
+    progress.className = "task-progress";
+    progress.max = tasks.length;
+    progress.value = tasks.length - count;
+    progress.setAttribute("aria-label", (tasks.length - count) + " of " + tasks.length + " tasks completed");
+    summary.append(progress);
+  }
+  if (tasks.length) {
+    const progress = document.createElement("progress");
+    progress.className = "task-progress";
+    progress.max = tasks.length;
+    progress.value = tasks.length - count;
+    progress.setAttribute("aria-label", (tasks.length - count) + " of " + tasks.length + " tasks completed");
+    summary.append(progress);
+  }
 }
 function commit(action) {
   tasks = changeTask(tasks, action);
