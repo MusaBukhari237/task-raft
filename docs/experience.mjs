@@ -5,29 +5,36 @@ const run = document.getElementById("run");
 const sample = document.getElementById("sample") || document.getElementById("example");
 const slug = document.documentElement.dataset.app;
 const editors = [...inputPanel.querySelectorAll("textarea, input[type=password]")];
-const primaryText = inputPanel.querySelector("textarea, input[type=text], #title");
+const primaryText = inputPanel.querySelector(
+  "textarea, input[type=text], input:not([type]), #title",
+);
 const tools = document.createElement("div");
 tools.className = "editor-tools";
 const count = document.createElement("span");
 const resultsLink = document.createElement("a");
 resultsLink.href = "#output-panel";
 resultsLink.textContent = "View results ↓";
-resultsLink.addEventListener("click", () => {
-  document.querySelector("#output-panel h2").focus({preventScroll:true});
+resultsLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  document.querySelector("#output-panel h2").focus({ preventScroll: true });
+  document.getElementById("output-panel").scrollIntoView({ block: "start" });
 });
 tools.append(count, resultsLink);
 inputPanel.append(tools);
 function updateCount() {
   const length = editors.length
-    ? editors.filter(editor => editor.type !== "password").reduce((total, editor) => total + editor.value.length, 0)
-    : primaryText?.value.length || 0;
+    ? editors
+        .filter((editor) => editor.type !== "password")
+        .reduce((total, editor) => total + Array.from(editor.value).length, 0)
+    : Array.from(primaryText?.value || "").length;
   count.textContent = length.toLocaleString() + " characters in editor";
 }
 function markChanged() {
   updateCount();
-  status.textContent = slug === "task-raft" || slug === "speechfield"
-    ? "Editing"
-    : "Inputs changed · run again to update results";
+  status.textContent =
+    slug === "task-raft" || slug === "speechfield"
+      ? "Editing"
+      : "Inputs changed · run again to update results";
 }
 if (editors.length || primaryText) {
   const clear = document.createElement("button");
@@ -38,7 +45,7 @@ if (editors.length || primaryText) {
     const fields = editors.length ? editors : [primaryText];
     for (const field of fields) field.value = "";
     // Notify existing input handlers, including editable speech fields.
-    for (const field of fields) field.dispatchEvent(new Event("input", {bubbles:true}));
+    for (const field of fields) field.dispatchEvent(new Event("input", { bubbles: true }));
     updateCount();
     status.textContent = "Editor cleared";
     (editors[0] || primaryText).focus();
@@ -47,23 +54,33 @@ if (editors.length || primaryText) {
 }
 inputPanel.addEventListener("input", markChanged);
 inputPanel.addEventListener("change", updateCount);
-sample?.addEventListener("click", () => queueMicrotask(() => {
-  updateCount();
-  if (slug !== "task-raft" && slug !== "speechfield") {
-    status.textContent = "Example loaded · ready to run";
-  }
-}));
+sample?.addEventListener("click", () =>
+  queueMicrotask(() => {
+    updateCount();
+    if (slug !== "task-raft" && slug !== "speechfield") {
+      status.textContent = "Example loaded · ready to run";
+    }
+  }),
+);
 new MutationObserver(() => {
+  for (const region of result.querySelectorAll(".grid, .table-wrap, pre")) {
+    region.tabIndex = 0;
+    region.setAttribute("role", "region");
+    region.setAttribute(
+      "aria-label",
+      region.tagName === "PRE" ? "Generated output" : "Result table",
+    );
+  }
   status.textContent = "Result updated";
   updateCount();
-}).observe(result, {childList:true, subtree:true, characterData:true});
+}).observe(result, { childList: true, subtree: true, characterData: true });
 if (slug !== "speechfield") {
   run.title = "Run current inputs with Ctrl+Enter or Command+Enter";
   const hint = document.createElement("span");
   hint.className = "shortcut";
   hint.textContent = "Ctrl / ⌘ + Enter";
   tools.append(hint);
-  inputPanel.addEventListener("keydown", event => {
+  inputPanel.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && (event.ctrlKey || event.metaKey) && !event.repeat) {
       event.preventDefault();
       if (!run.disabled) run.click();

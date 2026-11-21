@@ -1,38 +1,114 @@
 <!doctype html>
 <html lang="en" data-app="task-raft">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
-<title>A local task list | Task Raft</title>
-<meta name="description" content="Add, edit, finish, and filter tasks. Your list stays in this browser between visits.">
-<link rel="canonical" href="https://musabukhari237.github.io/task-raft/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="A local task list | Task Raft">
-<meta property="og:description" content="Add, edit, finish, and filter tasks. Your list stays in this browser between visits.">
-<meta property="og:url" content="https://musabukhari237.github.io/task-raft/">
-<meta property="og:image" content="https://musabukhari237.github.io/task-raft/preview.png">
-<meta property="og:image:alt" content="Task Raft showing the tool with an example result">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="app.css">
-<script src="app.mjs" type="module"></script>
-  <script type="module" src="experience.mjs"></script>
-  <script type="module" src="experience.mjs"></script>
-</head>
-<body>
-<a class="skip" href="#workspace">Skip to workspace</a>
-<header><a class="brand" href="./"><img src="logo.svg" alt="">Task Raft</a><nav aria-label="Main"><a href="#guide">How to use</a><a class="repo" href="https://github.com/MusaBukhari237/task-raft">GitHub ↗</a></nav></header>
-<main>
-<section class="masthead"><div class="intro"><p class="category">Daily planning</p><h1>A little room for your day.</h1><p class="description">A calm place to capture, finish, and revisit your tasks. Your list stays in this browser.</p></div><figure class="scene"><img src="Scene.jpg" alt="Mountain lake beneath a soft morning sky" width="1000" height="667" fetchpriority="high"></figure></section>
-<div class="workspace" id="workspace">
-<section class="panel input" aria-labelledby="settings"><h2 id="settings">Your next few things</h2>
-<div class="fields"><label class="wide">New task<input id="title" maxlength="160" placeholder="Write the first draft"></label><label>Show<select id="filter"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option></select></label></div><div class="actions"><button type="button" id="run">Add task</button><button type="button" class="quiet" id="example">Add example tasks</button></div><p class="note">Task data is stored for this site in your browser. Clearing site data clears the list.</p>
-</section>
-<section class="panel output" aria-labelledby="output" id="output-panel"><h2 id="output" tabindex="-1">Today’s list</h2><p class="result-status" id="result-status" aria-live="polite">Ready when you are</p><div class="result" id="result" aria-live="polite">Loading tasks…</div></section>
-</div>
-<details class="guide" id="guide"><summary>How to use Task Raft</summary><ol><li>Add a task or try the example list.</li><li>Edit a title in place, tick it off, or remove it.</li><li>Filter completed work. Your changes save in this browser.</li></ol></details>
-</main>
-<footer><span>Task Raft · <a href="https://github.com/MusaBukhari237/task-raft/blob/main/LICENSE">MIT licensed</a></span><span class="credits"><a href="https://www.leadceleris.com/">LeadCeleris</a><a href="https://www.aifficiento.biz/">AIFFICIENTO</a><a href="Assets.md">Photo credits</a></span></footer>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
+    />
+    <title>A local task list | Task Raft</title>
+    <meta
+      name="description"
+      content="Add, edit, finish, and filter tasks. Your list stays in this browser between visits."
+    />
+    <link rel="canonical" href="https://musabukhari237.github.io/task-raft/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A local task list | Task Raft" />
+    <meta
+      property="og:description"
+      content="Add, edit, finish, and filter tasks. Your list stays in this browser between visits."
+    />
+    <meta property="og:url" content="https://musabukhari237.github.io/task-raft/" />
+    <meta property="og:image" content="https://musabukhari237.github.io/task-raft/preview.png" />
+    <meta property="og:image:alt" content="Task Raft showing the tool with an example result" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="app.css" />
+    <script src="app.mjs" type="module"></script>
+    <script type="module" src="experience.mjs"></script>
+    <script type="module" src="experience.mjs"></script>
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to workspace</a>
+    <header>
+      <a class="brand" href="./"><img src="logo.svg" alt="" />Task Raft</a>
+      <nav aria-label="Main">
+        <a href="#guide">How to use</a
+        ><a class="repo" href="https://github.com/MusaBukhari237/task-raft">GitHub ↗</a>
+      </nav>
+    </header>
+    <main>
+      <section class="masthead">
+        <div class="intro">
+          <p class="category">Daily planning</p>
+          <h1>A little room for your day.</h1>
+          <p class="description">
+            A calm place to capture, finish, and revisit your tasks. Your list stays in this
+            browser.
+          </p>
+        </div>
+        <figure class="scene">
+          <img
+            src="Scene.jpg"
+            alt="Mountain lake beneath a soft morning sky"
+            width="1000"
+            height="667"
+            fetchpriority="high"
+          />
+        </figure>
+      </section>
+      <div class="workspace" id="workspace">
+        <section class="panel input" aria-labelledby="settings">
+          <h2 id="settings">Your next few things</h2>
+          <div class="fields">
+            <label class="wide"
+              >New task<input
+                id="title"
+                maxlength="160"
+                placeholder="Write the first draft" /></label
+            ><label
+              >Show<select id="filter">
+                <option value="all">All tasks</option>
+                <option value="open">Open</option>
+                <option value="done">Completed</option>
+              </select></label
+            >
+          </div>
+          <div class="actions">
+            <button type="button" id="run">Add task</button
+            ><button type="button" class="quiet" id="example">Add example tasks</button>
+          </div>
+          <p class="note">
+            Task data is stored for this site in your browser. Clearing site data clears the list.
+          </p>
+        </section>
+        <section class="panel output" aria-labelledby="output" id="output-panel">
+          <h2 id="output" tabindex="-1">Today’s list</h2>
+          <p class="result-status" id="result-status" aria-live="polite">Ready when you are</p>
+          <div class="result" id="result" aria-live="polite">Loading tasks…</div>
+        </section>
+      </div>
+      <details class="guide" id="guide">
+        <summary>How to use Task Raft</summary>
+        <ol>
+          <li>Add a task or try the example list.</li>
+          <li>Edit a title in place, tick it off, or remove it.</li>
+          <li>Filter completed work. Your changes save in this browser.</li>
+        </ol>
+      </details>
+    </main>
+    <footer>
+      <span
+        >Task Raft ·
+        <a href="https://github.com/MusaBukhari237/task-raft/blob/main/LICENSE"
+          >MIT licensed</a
+        ></span
+      ><span class="credits"
+        ><a href="https://www.leadceleris.com/">LeadCeleris</a
+        ><a href="https://www.aifficiento.biz/">AIFFICIENTO</a
+        ><a href="Assets.md">Photo credits</a></span
+      >
+    </footer>
+  </body>
 </html>
