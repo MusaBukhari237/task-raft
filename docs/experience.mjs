@@ -2,9 +2,12 @@ const inputPanel = document.querySelector(".panel");
 const result = document.getElementById("result");
 const status = document.getElementById("result-status");
 const run = document.getElementById("run");
-const sample = document.getElementById("sample") || document.getElementById("example");
+const sample =
+  document.getElementById("sample") || document.getElementById("example");
 const slug = document.documentElement.dataset.app;
-const editors = [...inputPanel.querySelectorAll("textarea, input[type=password]")];
+const editors = [
+  ...inputPanel.querySelectorAll("textarea, input[type=password]"),
+];
 const primaryText = inputPanel.querySelector(
   "textarea, input[type=text], input:not([type]), #title",
 );
@@ -45,7 +48,8 @@ if (editors.length || primaryText) {
     const fields = editors.length ? editors : [primaryText];
     for (const field of fields) field.value = "";
     // Notify existing input handlers, including editable speech fields.
-    for (const field of fields) field.dispatchEvent(new Event("input", { bubbles: true }));
+    for (const field of fields)
+      field.dispatchEvent(new Event("input", { bubbles: true }));
     updateCount();
     status.textContent = "Editor cleared";
     (editors[0] || primaryText).focus();
@@ -81,7 +85,11 @@ if (slug !== "speechfield") {
   hint.textContent = "Ctrl / ⌘ + Enter";
   tools.append(hint);
   inputPanel.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && (event.ctrlKey || event.metaKey) && !event.repeat) {
+    if (
+      event.key === "Enter" &&
+      (event.ctrlKey || event.metaKey) &&
+      !event.repeat
+    ) {
       event.preventDefault();
       if (!run.disabled) run.click();
     }
